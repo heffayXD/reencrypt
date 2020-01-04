@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Encrypt Application</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+</head>
+  <body>
+    <div id="root"></div>
+    <script>
+    {
+        const port = process.env.PORT || 8080
+        
+        const src = process.env.NODE_ENV === 'development' ? `http://localhost:${port}/bundle.js` : './bundle.js'
+
+        document.write(`<script defer src="${src}"><\/script>`)
+    }
+    </script>
+  </body>
+</html>

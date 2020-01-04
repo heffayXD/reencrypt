@@ -1,0 +1,44 @@
+div#toolbar {
+  background: #333;
+  display: flex;
+  h1 {
+    padding: 10px;
+    font-size: 24px;
+    white-space: nowrap;
+  }
+  .draggable {
+    width: 100%;
+    -webkit-app-region: drag;
+    margin-top: 5px;
+  }
+  #toolbar-buttons {
+    display: flex;
+    .button-container {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 49px;
+      &.larger {
+        font-size: 24px;
+        p {
+          margin-top: -4px;
+        }
+      }
+      &:hover {
+        background: #444;
+        cursor: pointer;
+        &.alert {
+          background: rgba(255, 0, 0, 0.8);
+        }
+      }
+      &:active {
+        background: #222;
+        &.alert {
+          background: rgba(255, 0, 0, 0.4);
+        }
+      }
+    }
+  }
+}

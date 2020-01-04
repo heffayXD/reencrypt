@@ -1,0 +1,51 @@
+.settings-checkbox {
+  &:hover {
+    .checkmark-container {
+      background-color: #333;
+    }
+  }
+  .checkmark-container {
+    height: 44px;
+    width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    outline-color: #111;
+    .checkmark {
+      opacity: 0;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      &:checked {
+        & ~ .checkmark {
+          opacity: 1;
+        }
+      }
+    }
+    &:hover {
+      cursor: pointer;
+      .checkmark {
+        opacity: 0.2;
+      }
+      input {
+        &:checked {
+          & ~ .checkmark {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    &:active {
+      background-color: #222;
+    }
+    &:focus-within {
+      background-color: #333;
+    }
+  }
+}
