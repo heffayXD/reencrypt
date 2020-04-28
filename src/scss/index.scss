@@ -1,5 +1,6 @@
 // Main
 @import './variables';
+@import './forms';
 
 // Views
 @import './views/_credentials-list';
@@ -22,13 +23,48 @@
 }
 body {
   overflow:hidden;
-  background-color: #111111;
-  color: #fff;
+  background-color: $background;
+  color: $font-primary;
   font-family: 'Roboto';
   main {
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100vh - 49px);
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  &.dp01 {
+    background-color: $dp01;
+  }
+  &.dp02 {
+    background-color: $dp02;
+  }
+  &.dp03 {
+    background-color: $dp03;
+  }
+  &.dp04 {
+    background-color: $dp04;
+  }
+  &.dp06 {
+    background-color: $dp06;
+  }
+  &.dp08 {
+    background-color: $dp08;
+  }
+  &.dp12 {
+    background-color: $dp12;
+  }
+  &.dp16 {
+    background-color: $dp16;
+  }
+  &.dp24 {
+    background-color: $dp24;
   }
 }
 

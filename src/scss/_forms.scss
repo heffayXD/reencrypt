@@ -1,0 +1,73 @@
+input {
+    color: $font-primary;
+    background-color: $dp01;
+    outline-color: $active;
+    &:hover, &:focus {
+        background-color: $dp02;
+    }
+}
+
+input[type="submit"], button {
+    color: $font-primary;
+    background-color: $dp01;
+    outline-color: $active;
+    &:hover {
+        cursor: pointer;
+        background-color: $dp02;
+    }
+    &:active {
+        background-color: $active;
+    }
+    &:disabled {
+        color: $font-faded;
+        &:hover {
+            cursor: default;
+            background-color: $dp01;
+        }
+    }
+}
+
+.checkmark-container {
+    width: auto;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 16px;
+    outline-color: $active;
+    background-color: $dp01;
+    .checkmark {
+      opacity: 0;
+      margin-right: 8px;
+    }
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      &:checked {
+        & ~ .checkmark {
+          opacity: 1;
+        }
+      }
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: $dp02;
+      .checkmark {
+        opacity: 0.38;
+      }
+      input {
+        &:checked {
+          & ~ .checkmark {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    &:active {
+      background-color: $active;
+    }
+  }
