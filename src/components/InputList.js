@@ -54,11 +54,12 @@ const InputList = props => {
   const getListItems = () => {
     return credentials.filter(val => {
       if (!search.enabled || !search.value.length) return true
+      const searchFormatted = search.value.toLowerCase()
 
       return (
-        val.title.toLowerCase().includes(search.value) ||
-        val.username.toLowerCase().includes(search.value) ||
-        val.password.toLowerCase().includes(search.value)
+        val.title.toLowerCase().includes(searchFormatted) ||
+        val.username.toLowerCase().includes(searchFormatted) ||
+        val.password.toLowerCase().includes(searchFormatted)
       )
     }).map((obj, index) => (
       <ListItem
