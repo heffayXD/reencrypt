@@ -59,6 +59,7 @@ const FloatingMenu = props => {
       {credentials.unsaved ? (
         <div className='floating-save button' title='Save' onClick={handleSave}>
           <FontAwesomeIcon icon={faSave} />
+          <div className='overlay dp01' />
         </div>
       ) : ''}
       {search.enabled ? (
@@ -71,14 +72,17 @@ const FloatingMenu = props => {
             onChange={handleSearch}
             onKeyDown={handleSearchEsc}
           />
+          <div className='overlay dp01' />
         </div>
       ) : ''}
       <div className='floating-search-toggle button' title={search.enabled ? 'Close Search' : 'Open Search'} onClick={handleSearchToggle}>
         <FontAwesomeIcon icon={search.enabled ? faTimes : faSearch} />
+        <div className='overlay dp01' />
       </div>
       {!search.enabled ? (
         <div className='floating-add button' title='Add' onClick={handleAdd}>
           <FontAwesomeIcon icon={faPlus} />
+          <div className='overlay dp01' />
         </div>
       ) : ''}
     </div>

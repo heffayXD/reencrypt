@@ -7,30 +7,51 @@
   .button {
     height: 50px;
     width: 50px;
-    background-color: #222;
+    background-color: $background;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #111;
+    border: 2px solid $background;
+    position: relative;
     border-right: none;
+    svg {
+      z-index: 1;
+    }
     &:hover {
       cursor: pointer;
-      background-color: #333;
+      .overlay {
+        background-color: $dp02;
+      }
     }
     &:active {
-      background: #222;
+      .overlay {
+        background-color: $active;
+      }
     }
     &:last-child {
-      border-right: 2px solid #111;
+      border-right: 2px solid $background;
+    }
+  }
+  .floating-search {
+    position: relative;
+    background-color: $background;
+    input {
+      z-index: 1;
+      position: relative;
+      background-color: transparent;
+    }
+    &:focus-within {
+      .overlay {
+        background-color: $dp02;
+      }
     }
   }
   input {
     height: 50px;
     width: 150px;
-    outline-color: #111;
+    outline-color: $active;
     font-size: 16px;
-    background-color: #222;
-    border: 2px solid #111;
+    border: 2px solid $background;
     border-right: 0px;
     color: #fff;
     padding-left: 10px;
