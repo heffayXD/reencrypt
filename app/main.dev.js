@@ -20,11 +20,16 @@ const createWindow = () => {
   })
 
   if (isDev()) {
+    const reactID = 'fmkadmapgofadopljbjfkapdkoienihi'
+    const reactVersion = '4.6.0_0'
+    const reduxID = 'lmhkpmbekcpmknklioeibfkpmmfibljd'
+    const reduxVersion = '2.17.0_0'
+
     BrowserWindow.addDevToolsExtension(
-      path.join(os.homedir(), '\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.3.0_0')
+      path.join(os.homedir(), `\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\${reactID}\\${reactVersion}`)
     )
     BrowserWindow.addDevToolsExtension(
-      path.join(os.homedir(), '\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\lmhkpmbekcpmknklioeibfkpmmfibljd\\2.17.0_0')
+      path.join(os.homedir(), `\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\${reduxID}\\${reduxVersion}`)
     )
 
     mainWindow.webContents.openDevTools()
