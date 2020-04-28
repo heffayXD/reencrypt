@@ -12,19 +12,19 @@
       width: 40px;
       height: 40px;
       &:hover {
-        background-color: #333;
+        background-color: $dp02;
         cursor: pointer; 
       }
       &:active {
-        background-color: #222;
+        background-color: $active;
       }
     }
   }
   .settings-list-title {
     padding: 20px;
     text-align: center;
-    border-bottom: 2px solid #222;
-    border-top: 2px solid #222;
+    border-bottom: 2px solid $dp02;
+    border-top: 2px solid $dp02;
   }
   ul.settings-list {
     li {
@@ -37,10 +37,9 @@
         padding: 10px;
         padding-top: 0px;
         width: 100%;
-        opacity: 0.6;
+        color: $font-secondary;
         &.danger {
-          opacity: 1;
-          color: rgb(255, 0, 0);
+          color: $danger;
         }
       }
       .setting-container {
@@ -52,9 +51,9 @@
           padding: 10px;
         }
         &:hover, &:focus-within {
-          background-color: #222;
+          background-color: $dp02;
           input {
-            background-color: #333;
+            background-color: $dp04;
           }
         }
       }
@@ -63,21 +62,21 @@
           font-weight: 500;
         }
         .info {
-          opacity: 0.6;
+          color: $font-secondary;
         }
       }
       .setting-button {
         padding: 14px;
         text-align: center;
-        color: rgba(0, 140, 255, 0.8);
+        color: $primary;
         h4 {
           display: inline;
         }
         &.danger {
-          color: rgb(255, 0, 0);
+          color: $danger;
         }
         &:hover {
-          background-color: #333;
+          background-color: $dp04;
           cursor: pointer;
         }
       }
@@ -87,12 +86,11 @@
         border: none;
         background-color: transparent;
         padding: 10px;
-        color: #fff;
-        outline-color: #111;
+        color: $font-primary;
+        outline-color: $active;
         font-size: 16px;
-        outline-color: #111;
         &:hover {
-          background-color: #333;
+          background-color: $dp04;
         }
       }
       input[type=number]::-webkit-outer-spin-button,

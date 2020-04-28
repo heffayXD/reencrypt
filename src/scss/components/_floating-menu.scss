@@ -20,7 +20,7 @@
     &:hover {
       cursor: pointer;
       .overlay {
-        background-color: $dp02;
+        background-color: $dp04;
       }
     }
     &:active {
@@ -42,7 +42,7 @@
     }
     &:focus-within {
       .overlay {
-        background-color: $dp02;
+        background-color: $dp04;
       }
     }
   }

@@ -72,17 +72,17 @@ const FloatingMenu = props => {
             onChange={handleSearch}
             onKeyDown={handleSearchEsc}
           />
-          <div className='overlay dp01' />
+          <div className='overlay dp02' />
         </div>
       ) : ''}
       <div className='floating-search-toggle button' title={search.enabled ? 'Close Search' : 'Open Search'} onClick={handleSearchToggle}>
         <FontAwesomeIcon icon={search.enabled ? faTimes : faSearch} />
-        <div className='overlay dp01' />
+        <div className='overlay dp02' />
       </div>
       {!search.enabled ? (
         <div className='floating-add button' title='Add' onClick={handleAdd}>
           <FontAwesomeIcon icon={faPlus} />
-          <div className='overlay dp01' />
+          <div className='overlay dp02' />
         </div>
       ) : ''}
     </div>

@@ -1,19 +1,19 @@
 input {
     color: $font-primary;
-    background-color: $dp01;
+    background-color: $dp02;
     outline-color: $active;
     &:hover, &:focus {
-        background-color: $dp02;
+        background-color: $dp04;
     }
 }
 
 input[type="submit"], button {
     color: $font-primary;
-    background-color: $dp01;
+    background-color: $dp02;
     outline-color: $active;
     &:hover {
         cursor: pointer;
-        background-color: $dp02;
+        background-color: $dp04;
     }
     &:active {
         background-color: $active;
@@ -22,7 +22,7 @@ input[type="submit"], button {
         color: $font-faded;
         &:hover {
             cursor: default;
-            background-color: $dp01;
+            background-color: $dp02;
         }
     }
 }
@@ -36,7 +36,7 @@ input[type="submit"], button {
     text-align: center;
     font-size: 16px;
     outline-color: $active;
-    background-color: $dp01;
+    background-color: $dp02;
     .checkmark {
       opacity: 0;
       margin-right: 8px;
@@ -55,7 +55,7 @@ input[type="submit"], button {
     }
     &:hover {
       cursor: pointer;
-      background-color: $dp02;
+      background-color: $dp04;
       .checkmark {
         opacity: 0.38;
       }

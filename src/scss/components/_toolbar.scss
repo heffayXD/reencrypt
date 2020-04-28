@@ -1,5 +1,5 @@
 div#toolbar {
-  background: #333;
+  background: $dp12;
   display: flex;
   h1 {
     padding: 10px;
@@ -27,14 +27,14 @@ div#toolbar {
         }
       }
       &:hover {
-        background: #444;
+        background: $dp16;
         cursor: pointer;
         &.alert {
           background: rgba(255, 0, 0, 0.8);
         }
       }
       &:active {
-        background: #222;
+        background: $active;
         &.alert {
           background: rgba(255, 0, 0, 0.4);
         }

@@ -8,7 +8,7 @@ li.list-item {
       padding: 10px;
       border: none;
       background-color: transparent;
-      color: #fff;
+      color: $font-primary;
       outline: none;
       font-size: 16px;
     }
@@ -25,17 +25,17 @@ li.list-item {
       outline-color: transparent;
       &:hover {
         cursor: pointer;
-        background: #444;// rgba(0, 255, 0, 0.6);
+        background-color: $dp06;
         &.alert {
-          background: rgba(255, 0, 0, 0.6);
+          background-color: rgba(255, 0, 0, 0.6);
         }
       }
       &:active {
-        background:#333;
-        outline-color: #222;
+        background-color: $active;
+        outline-color: $active;
         &.alert {
-          background: rgba(255, 0, 0, 0.2);
-          outline-color: #222;
+          background-color: rgba(255, 0, 0, 0.2);
+          outline-color: $active;
         }
       }
     }
@@ -53,9 +53,9 @@ li.list-item {
   }
   
   &:hover {
-    background-color: #222;
+    background-color: $dp02;
   }
   &:focus-within {
-    background-color: #333;
+    background-color: $dp04;
   }
 }

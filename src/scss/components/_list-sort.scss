@@ -17,7 +17,7 @@ li#list-sort {
       }
       &:hover {
         cursor: pointer;
-        background-color: #222;
+        background-color: $dp02;
         .legend-icon {
           opacity: 1;
         }

@@ -1,7 +1,7 @@
 .settings-expand {
   .expand-content {
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
+    border-top: 1px solid $dp02;
+    border-bottom: 1px solid $dp02;
     display: none;
     &.expanded {
       display: block;
