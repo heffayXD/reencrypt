@@ -1,6 +1,7 @@
 {
   "name": "encrypt",
   "version": "0.1.1",
+  "main": "./app/main.prod.js",
   "description": "Application for encryption and decryption of your accounts and passwords",
   "scripts": {
     "test": "jest",
@@ -64,6 +65,7 @@
       "main.prod.js",
       "package.json"
     ],
+    "extends": null,
     "directories": {
       "buildResources": "resources",
       "output": "release"

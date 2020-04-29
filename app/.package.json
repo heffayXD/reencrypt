@@ -1,7 +1,7 @@
 {
     "name": "reencrypt",
     "productName": "re:Encrypt",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Application for encryption and decryption of your accounts and passwords",
     "main": "./main.prod.js",
     "author": "Jeff",
