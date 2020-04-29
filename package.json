@@ -1,6 +1,6 @@
 {
   "name": "encrypt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Application for encryption and decryption of your accounts and passwords",
   "scripts": {
     "test": "jest",
