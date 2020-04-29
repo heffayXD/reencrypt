@@ -80,17 +80,15 @@ p, h1, h2, h3, h4, h5, label {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #000;
-  border-radius: 6px;
+  background-color: $active;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 6px;
+  background-color: $dp12;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: $dp24;
 }
