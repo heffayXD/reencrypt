@@ -137,6 +137,9 @@ const LoadFile = props => {
           <div className='save'>
             <p className='button' onClick={() => history.push('/create')}>or Create New</p>
           </div>
+          <div className='save'>
+            <p className='button' onClick={() => history.push('/sign-in')}>or Sign In (in development)</p>
+          </div>
         </form>
       </main>
     </div>
