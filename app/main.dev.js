@@ -45,11 +45,21 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow()
 })
 
-ipcMain.on('file-message', (event, params) => onFile(app, event, params))
-ipcMain.on('hash-message', (event, params) => onHash(app, event, params))
-ipcMain.on('save-message', (event, params) => onSave(app, event, params))
-ipcMain.on('load-message', (event, params) => onLoad(app, event, params))
-ipcMain.on('saveas-message', (event, params) => onSaveAs(app, event, params))
-ipcMain.on('savesettings-message', (event, params) => onSaveSettings(app, event, params))
-ipcMain.on('loadsettings-message', (event, params) => onLoadSettings(app, event, params))
-ipcMain.on('delete-message', (event, params) => onDelete(app, event, params))
+// Sets up the IPC functions
+const setUpIPC = () => {
+  const ipcFunctions = {
+    file: onFile,
+    hash: onHash,
+    save: onSave,
+    load: onLoad,
+    saveas: onSaveAs,
+    savesettings: onSaveSettings,
+    loadsettings: onLoadSettings,
+    delete: onDelete
+  }
+
+  for (const [key, callback] of Object.entries(ipcFunctions)) {
+    ipcMain.on(`${key}-message`, (event, params) => callback(app, event, params))
+  }
+}
+setUpIPC()
