@@ -1,5 +1,5 @@
 {
-  "name": "encrypt",
+  "name": "reencrypt",
   "version": "0.1.1",
   "main": "./app/main.prod.js",
   "description": "Application for encryption and decryption of your accounts and passwords",
