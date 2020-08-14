@@ -1,6 +1,6 @@
 import 'regenerator-runtime'
 import path from 'path'
-import os from 'os'
+import installExtension, { REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { app, BrowserWindow, ipcMain } from 'electron'
 import { onHash, onFile, onSave, onLoad, onSaveAs, onSaveSettings, onLoadSettings, onDelete } from './ipc/ipcCallbacks'
 import { isDev } from './hooks/helpers'
@@ -14,23 +14,13 @@ const createWindow = () => {
     frame: false,
     minWidth: 550,
     minHeight: 310,
-    webPreferences: {
-      nodeIntegration: true
-    }
+    webPreferences: { nodeIntegration: true }
   })
 
   if (isDev()) {
-    const reactID = 'fmkadmapgofadopljbjfkapdkoienihi'
-    const reactVersion = '4.6.0_0'
-    const reduxID = 'lmhkpmbekcpmknklioeibfkpmmfibljd'
-    const reduxVersion = '2.17.0_0'
-
-    BrowserWindow.addDevToolsExtension(
-      path.join(os.homedir(), `\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\${reactID}\\${reactVersion}`)
-    )
-    BrowserWindow.addDevToolsExtension(
-      path.join(os.homedir(), `\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\${reduxID}\\${reduxVersion}`)
-    )
+    installExtension([REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS])
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      .catch((err) => console.log('An error occurred: ', err))
 
     mainWindow.webContents.openDevTools()
   }
@@ -44,6 +34,7 @@ const createWindow = () => {
 
 app.on('ready', createWindow)
 
+// Mac fix
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
