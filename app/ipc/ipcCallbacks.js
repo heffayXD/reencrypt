@@ -7,9 +7,7 @@ import { useAppPath, isDev } from '../hooks/helpers'
 
 /**
  * Handles the On Save IPC Event
- * @param {object} app
- * @param {object} event
- * @param {object} config
+ * @param {object} app, @param {object} event, @param {object} config
  */
 export const onSave = async (app, event, config) => {
   try {
@@ -30,9 +28,7 @@ export const onSave = async (app, event, config) => {
 
 /**
  * Handles the On Save As IPC Event
- * @param {object} app
- * @param {object} event
- * @param {object} config
+ * @param {object} app, @param {object} event, @param {object} config
  */
 export const onSaveAs = async (app, event, config) => {
   try {
@@ -69,9 +65,7 @@ export const onSaveAs = async (app, event, config) => {
 
 /**
  * Handles the On Hash event
- * @param {object} app
- * @param {object} event
- * @param {string} password
+ * @param {object} app, @param {object} event, @param {string} password
  */
 export const onHash = async (app, event, password) => {
   try {
@@ -88,9 +82,7 @@ export const onHash = async (app, event, password) => {
 
 /**
  * Handles the On File IPC Event
- * @param {object} app
- * @param {object} event
- * @param {object} config
+ * @param {object} app, @param {object} event, @param {object} config
  */
 export const onFile = async (app, event, file = '') => {
   try {
@@ -119,9 +111,7 @@ export const onFile = async (app, event, file = '') => {
 
 /**
  * Handles the On Load IPC Event
- * @param {object} app
- * @param {object} event
- * @param {object} config
+ * @param {object} app, @param {object} event, @param {object} config
  */
 export const onLoad = async (app, event, config) => {
   try {
@@ -146,9 +136,7 @@ export const onLoad = async (app, event, config) => {
 
 /**
  * Handles the On Save Settings IPC Event
- * @param {object} app
- * @param {object} event
- * @param {object} settings
+ * @param {object} app, @param {object} event, @param {object} settings
  */
 export const onSaveSettings = async (app, event, settings) => {
   try {
@@ -171,8 +159,7 @@ export const onSaveSettings = async (app, event, settings) => {
 
 /**
  * Handles the On Load Settings IPC Event
- * @param {object} app
- * @param {object} event
+ * @param {object} app, @param {object} event
  */
 export const onLoadSettings = async (app, event) => {
   try {
@@ -200,9 +187,7 @@ export const onLoadSettings = async (app, event) => {
 
 /**
  * Handles the On Delete IPC Event
- * @param {object} app
- * @param {object} event
- * @param {object} config
+ * @param {object} app, @param {object} event, @param {string} file
  */
 export const onDelete = async (app, event, file) => {
   try {
@@ -213,5 +198,21 @@ export const onDelete = async (app, event, file) => {
     })
   } catch (err) {
     event.reply('delete-reply', [false, err.message])
+  }
+}
+
+/**
+ * Handles the On Encrypt As IPC Event
+ * @param {object} app, @param {object} event, @param {object} config
+ */
+export const onEncrypt = async (app, event, config) => {
+  try {
+    const encrypt = useEncryptCredentials()
+    const [success, encryptedData] = await encrypt(config.payload, config.key)
+    if (!success) throw new Error(`Encryption failed: ${encryptedData}`)
+
+    event.reply('encrypt-reply', [true, encryptedData])
+  } catch (err) {
+    event.reply('encrypt-reply', [false, err.message])
   }
 }

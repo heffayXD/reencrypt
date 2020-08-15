@@ -5,6 +5,7 @@ import Settings from '../views/Settings'
 import LoadFile from '../views/LoadFile'
 import CreateFile from '../views/CreateFile'
 import SignIn from '../views/SignIn'
+import AccountFiles from '../views/AccountFiles'
 import { useSelector } from 'react-redux'
 
 const Navigation = props => {
@@ -23,6 +24,9 @@ const Navigation = props => {
             </Route>
             <Route path='/sign-in'>
               <SignIn />
+            </Route>
+            <Route path='/account-files'>
+              <AccountFiles />
             </Route>
           </>
         )}

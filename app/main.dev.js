@@ -2,7 +2,7 @@ import 'regenerator-runtime'
 import path from 'path'
 import installExtension, { REDUX_DEVTOOLS, REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { app, BrowserWindow, ipcMain } from 'electron'
-import { onHash, onFile, onSave, onLoad, onSaveAs, onSaveSettings, onLoadSettings, onDelete } from './ipc/ipcCallbacks'
+import { onHash, onFile, onSave, onLoad, onSaveAs, onSaveSettings, onLoadSettings, onDelete, onEncrypt } from './ipc/ipcCallbacks'
 import { isDev } from './hooks/helpers'
 
 let mainWindow = null
@@ -55,7 +55,8 @@ const setUpIPC = () => {
     saveas: onSaveAs,
     savesettings: onSaveSettings,
     loadsettings: onLoadSettings,
-    delete: onDelete
+    delete: onDelete,
+    encrypt: onEncrypt
   }
 
   for (const [key, callback] of Object.entries(ipcFunctions)) {
