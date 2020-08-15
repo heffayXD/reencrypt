@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import Toolbar from '../components/Toolbar'
+import TextInput from '../components/onboarding/TextInput'
+import Checkbox from '../components/onboarding/Checkbox'
 import { signIn, setToken } from '../helpers/api'
 
 const SignIn = props => {
@@ -68,33 +68,25 @@ const SignIn = props => {
 
           <div className='enter-password'>
             <h3>Sign In</h3>
-            <div>
-              <input
-                type='text'
-                value={credentials.username}
-                placeholder='Username'
-                name='username'
-                onChange={handleCredentials}
-              />
-            </div>
-            <div>
-              <input
-                type='password'
-                value={credentials.password}
-                placeholder='Password'
-                name='password'
-                onChange={handleCredentials}
-              />
-            </div>
-            <div className='remember'>
-              <label className='checkmark-container' tabIndex='0'>
-                <input type='checkbox' name='rememberFile' checked={remember} onChange={handleRemember} />
-                <span className='checkmark'>
-                  <FontAwesomeIcon icon={faCheck} />
-                </span>
-                Remember
-              </label>
-            </div>
+            <TextInput
+              value={credentials.username}
+              placeholder='Username'
+              name='username'
+              onChange={handleCredentials}
+            />
+            <TextInput
+              type='password'
+              value={credentials.password}
+              placeholder='Password'
+              name='password'
+              onChange={handleCredentials}
+            />
+            <Checkbox
+              checked={remember}
+              text='Remember'
+              name='remember'
+              onChange={handleRemember}
+            />
           </div>
 
           <div className='submit'>
