@@ -1,12 +1,14 @@
-.checkbox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    width: auto;
-    p {
-        display: inline-block;
-        margin-left: 10px;
+#load-file, #create-file, #account-files, #sign-in {
+    div.checkbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 0px;
+        width: auto;
+        p {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 0px;
+        }
     }
 }

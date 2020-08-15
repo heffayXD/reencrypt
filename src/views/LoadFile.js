@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import Toolbar from '../components/Toolbar'
 import { useSelector, useDispatch } from 'react-redux'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { useHistory } from 'react-router-dom'
+
+import Toolbar from '../components/Toolbar'
+import Checkbox from '../components/onboarding/Checkbox'
+
 import { useIpcRenderer } from '../hooks/electron'
 import { useSaveSettings } from '../hooks/helpers'
 
@@ -97,6 +98,7 @@ const LoadFile = props => {
       <Toolbar />
       <main id='load-file'>
         <form onSubmit={handleSubmit}>
+
           <div className='select-file'>
             <h3>{config.file ? 'File Selected' : 'Load a File'}</h3>
             {config.file ? (<p>{config.file}</p>) : ''}
@@ -105,18 +107,16 @@ const LoadFile = props => {
                 {config.file ? 'Change' : 'Select File'}
               </button>
               {config.file ? (
-                <div className='remember'>
-                  <label className='checkmark-container' tabIndex='0'>
-                    <input type='checkbox' name='rememberFile' checked={config.rememberFile} onChange={handleRemember} />
-                    <span className='checkmark'>
-                      <FontAwesomeIcon icon={faCheck} />
-                    </span>
-                    Remember
-                  </label>
-                </div>
+                <Checkbox
+                  text='Remember'
+                  name='rememberFile'
+                  checked={config.rememberFile}
+                  onChange={handleRemember}
+                />
               ) : ''}
             </div>
           </div>
+
           <div className='enter-password'>
             <h3>Enter File Password</h3>
             <input
@@ -126,6 +126,7 @@ const LoadFile = props => {
               onChange={handlePassword}
             />
           </div>
+
           <div className='submit'>
             <input
               type='submit'
@@ -134,6 +135,7 @@ const LoadFile = props => {
             />
             {error ? (<p className='error'>{error}</p>) : ''}
           </div>
+
           <div className='save'>
             <p className='button' onClick={() => history.push('/create')}>or Create New</p>
           </div>

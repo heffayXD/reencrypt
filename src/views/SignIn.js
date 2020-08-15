@@ -10,7 +10,7 @@ import { signIn, setToken } from '../helpers/api'
 const SignIn = props => {
   const [url] = useState('http://localhost:8086/api')
   const [credentials, setCredentials] = useState({ username: '', password: '' })
-  const [remember, setRemember] = useState(false)
+  const [remember, setRemember] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const history = useHistory()
@@ -66,7 +66,7 @@ const SignIn = props => {
       <main id='load-file'>
         <form onSubmit={handleSignIn}>
 
-          <div className='enter-password'>
+          <div>
             <h3>Sign In</h3>
             <TextInput
               value={credentials.username}
@@ -83,7 +83,7 @@ const SignIn = props => {
             />
             <Checkbox
               checked={remember}
-              text='Remember'
+              text='Remember Me'
               name='remember'
               onChange={handleRemember}
             />

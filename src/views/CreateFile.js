@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import Toolbar from '../components/Toolbar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+
+import Toolbar from '../components/Toolbar'
+import Checkbox from '../components/onboarding/Checkbox'
+
 import { useIpcRenderer } from '../hooks/electron'
 import { useSaveSettings } from '../hooks/helpers'
 
@@ -97,6 +98,7 @@ const CreateFile = props => {
       <Toolbar />
       <main id='load-file'>
         <form onSubmit={handleSubmit}>
+
           <div className='enter-password'>
             <h3>Create File Password</h3>
             <input
@@ -106,6 +108,7 @@ const CreateFile = props => {
               onChange={handlePassword}
             />
           </div>
+
           <div className='confirm-password'>
             <h3>Confirm Password</h3>
             <input
@@ -116,19 +119,19 @@ const CreateFile = props => {
             />
             {password !== confirm ? (<p className='error'>Passwords do not match</p>) : ''}
           </div>
+
           <div className='disclaimer'>
             <p className='note'>It's <strong>highly</strong> recommended that you <strong>do not</strong> use the same password for different files.</p>
             <p className='note'>You <strong>cannot</strong> recover a password after it has been set.</p>
           </div>
-          <div className='remember'>
-            <label className='checkmark-container' tabIndex='0'>
-              <input type='checkbox' name='rememberFile' checked={rememberFile} onChange={handleRemember} />
-              <span className='checkmark'>
-                <FontAwesomeIcon icon={faCheck} />
-              </span>
-              Use as default file
-            </label>
-          </div>
+
+          <Checkbox
+            text='Use as default file'
+            name='rememberFile'
+            checked={rememberFile}
+            onChange={handleRemember}
+          />
+
           <div className='submit'>
             <input
               type='submit'
@@ -137,9 +140,11 @@ const CreateFile = props => {
             />
             {error ? (<p className='error'>{error}</p>) : ''}
           </div>
+
           <div className='load'>
             <p className='button' onClick={() => history.push('/')}>or Load File</p>
           </div>
+
         </form>
       </main>
     </div>

@@ -9,7 +9,8 @@ const DEFAULT_STATE = {
     useSpecial: false
   },
   passwordLength: 16,
-  passwordPattern: '[a-zA-Z0-9@#$%+?!&*|]'
+  passwordPattern: '[a-zA-Z0-9@#$%+?!&*|]',
+  username: ''
 }
 
 export default (state = DEFAULT_STATE, action) => {
