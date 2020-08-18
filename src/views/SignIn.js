@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import Toolbar from '../components/Toolbar'
@@ -15,6 +15,35 @@ const SignIn = props => {
   const [error, setError] = useState('')
   const history = useHistory()
   const dispatch = useDispatch()
+  const state = useSelector(state => {
+    console.log(state)
+    return state
+  })
+
+  useEffect(() => {
+    const tempFunc = async () => {
+      try {
+        setLoading(true)
+
+        const userData = await signIn(url, { username: 'heffayXD', password: 'Password123' })
+        if (!userData.token) throw userData
+        setToken(userData.token)
+
+        dispatch({
+          type: 'UPDATE_CONFIG',
+          config: 'username',
+          value: remember ? credentials.username : ''
+        })
+
+        setLoading(false)
+        history.push('/online-list')
+      } catch (err) {
+        handleError(err)
+      }
+    }
+
+    tempFunc()
+  }, [])
 
   /**
    * Handles setting an error
@@ -53,8 +82,14 @@ const SignIn = props => {
       if (!userData.token) throw userData
       setToken(userData.token)
 
+      dispatch({
+        type: 'UPDATE_CONFIG',
+        config: 'username',
+        value: remember ? credentials.username : ''
+      })
+
       setLoading(false)
-      history.push('/account-files')
+      history.push('/online-list')
     } catch (err) {
       handleError(err)
     }
@@ -83,7 +118,7 @@ const SignIn = props => {
             />
             <Checkbox
               checked={remember}
-              text='Remember Me'
+              text='Remember Username'
               name='remember'
               onChange={handleRemember}
             />

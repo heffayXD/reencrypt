@@ -2,7 +2,8 @@ const DEFAULT_STATE = {
   file: '',
   key: '',
   rememberFile: false,
-  loaded: false
+  loaded: false,
+  username: ''
 }
 
 export default (state = DEFAULT_STATE, action) => {

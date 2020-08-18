@@ -12,11 +12,15 @@ export const useSaveSettings = () => {
   })
 
   return async (override = {}) => {
-    const { file, rememberFile } = config
+    const { file, rememberFile, username } = config
 
     const result = await handleSave({
       options: options,
-      config: { file: rememberFile ? file : '', rememberFile },
+      config: {
+        file: rememberFile ? file : '',
+        rememberFile,
+        username
+      },
       ...override
     })
 

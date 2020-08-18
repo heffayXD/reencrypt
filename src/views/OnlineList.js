@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import Toolbar from '../components/Toolbar'
+import FileSelect from '../components/FileSelect'
 
 import { useIpcRenderer } from '../hooks/electron'
 import { useSaveSettings } from '../hooks/helpers'
 import { indexFiles, createFile } from '../helpers/api'
 
-const AccountFiles = props => {
+const OnlineList = props => {
   const [url, setUrl] = useState('http://localhost:8086/api')
   const [files, setFiles] = useState([])
   const [fields, setFields] = useState({ name: '', password: '', confirm: '' })
@@ -27,7 +28,6 @@ const AccountFiles = props => {
         const [success, result] = await indexFiles(url)
         if (!success) throw result
 
-        console.log(result)
         setFiles(result.files)
         setLoading(false)
       } catch (err) {
@@ -106,8 +106,14 @@ const AccountFiles = props => {
   return (
     <div>
       <Toolbar />
-      <main id='account-files'>
-        <form onSubmit={handleCreate}>
+      <main id='online-list'>
+        <div className='sidebar'>
+          <FileSelect files={files} />
+        </div>
+        <div className='credentials'>
+          <h1>Please select a file</h1>
+        </div>
+        {/* <form onSubmit={handleCreate}>
           <div className='enter-name'>
             <h3>Create File Name</h3>
             <input
@@ -140,11 +146,6 @@ const AccountFiles = props => {
             {fields.password !== fields.confirm ? (<p className='error'>Passwords do not match</p>) : ''}
           </div>
 
-          {/* <div className='disclaimer'>
-            <p className='note'>It's <strong>highly</strong> recommended that you <strong>do not</strong> use the same password for different files.</p>
-            <p className='note'>You <strong>cannot</strong> recover a password after it has been set.</p>
-          </div> */}
-
           <div className='submit'>
             <input
               type='submit'
@@ -158,10 +159,10 @@ const AccountFiles = props => {
             <p className='button' onClick={() => history.push('/')}>or Create File</p>
           </div>
 
-        </form>
+        </form> */}
       </main>
     </div>
   )
 }
 
-export default AccountFiles
+export default OnlineList

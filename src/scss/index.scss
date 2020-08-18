@@ -6,6 +6,7 @@
 @import './views/_credentials-list';
 @import './views/_settings';
 @import './views/_load-file';
+@import './views/_online-list';
 
 // Components
 @import './components/_toolbar';
@@ -16,6 +17,7 @@
 @import './components/_settings-checkbox';
 @import './components/_settings-text';
 @import './components/_settings-expand';
+@import './components/file-select';
 
 @import './components/_onboarding-text-input';
 @import './components/_onboarding-checkbox';
@@ -24,6 +26,7 @@
   margin: 0;
   padding: 0;
 }
+
 body {
   overflow:hidden;
   background-color: $background;
@@ -34,6 +37,12 @@ body {
     overflow-x: hidden;
     height: calc(100vh - 49px);
   }
+}
+
+.sidebar {
+  height: calc(100%);
+  overflow-y: auto;
+  border-right: 2px solid $dp02;
 }
 
 .overlay {
