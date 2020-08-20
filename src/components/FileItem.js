@@ -1,7 +1,7 @@
 import React from 'react'
 
 const FileItem = props => {
-  const { file, onClick } = props
+  const { file, onClick, selected } = props
 
   const handleClick = e => {
     e.preventDefault()
@@ -10,7 +10,7 @@ const FileItem = props => {
   }
 
   return (
-    <li className='file-item' onClick={handleClick}>
+    <li className={selected ? 'file-item selected' : 'file-item'} onClick={handleClick}>
       <h4 className='file-name'>{file}</h4>
     </li>
   )

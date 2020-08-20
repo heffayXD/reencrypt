@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import FileItem from './FileItem'
 
@@ -7,6 +8,8 @@ import { getFile } from '../helpers/api'
 const FileSelect = props => {
   const { files } = props
   const [loading, setLoading] = useState(false)
+  const [selected, setSelected] = useState('')
+  const dispatch = useDispatch()
 
   const handleClick = async fileName => {
     try {
@@ -16,8 +19,10 @@ const FileSelect = props => {
       const [success, result] = await getFile('http://localhost:8086/api', fileName)
       if (!success) throw result
 
-      props.setPassword('')
+      props.reset()
       props.setData(result)
+      setSelected(fileName)
+      dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: fileName })
       setLoading(false)
     } catch (err) {
       console.log(err)
@@ -32,6 +37,7 @@ const FileSelect = props => {
           key={`file-${file}`}
           file={file}
           onClick={handleClick}
+          selected={file === selected}
         />
       ))}
     </ul>

@@ -43,3 +43,12 @@ export const getFile = async (url, file) => {
     return [false, err]
   }
 }
+
+export const updateFile = async (url, file, payload) => {
+  try {
+    const result = await axios.put(`${url}/file/${file}`, payload)
+    return [true, result.data]
+  } catch (err) {
+    return [false, err]
+  }
+}

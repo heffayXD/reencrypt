@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import InputList from '../../InputList'
 import FloatingMenu from '../../FloatingMenu'
 
-import { useFocus, useSave } from '../../../hooks/helpers'
+import { useFocus, useSync } from '../../../hooks/helpers'
 
 const CredentialList = props => {
   const [keys, setKeys] = useState([])
   const dispatch = useDispatch()
   const focusSearch = useFocus('search', true)
-  const handleSave = useSave()
+  const handleSave = useSync()
   const { credentials, searchEnabled } = useSelector(state => {
     return {
       credentials: state.credentials,
@@ -31,7 +31,7 @@ const CredentialList = props => {
       dispatch({ type: 'REDO' })
     } else if (keyArray.includes(17) && keyArray.includes(83) && credentials.unsaved) {
       e.preventDefault()
-      handleSave()
+      handleSave('http://localhost:8086/api')
     } else if (keyArray.includes(17) && keyArray.includes(70)) {
       if (!searchEnabled) {
         dispatch({ type: 'ENABLE_SEARCH', enabled: true })

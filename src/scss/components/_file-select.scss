@@ -9,5 +9,11 @@
             cursor: pointer;
             background-color: $dp02;
         }
+        &:active {
+            background-color: $active;
+        }
+        &.selected {
+            background-color: $dp04;
+        }
     }
 }

@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useIpcRenderer } from './electron'
+import { updateFile } from '../helpers/api'
 
 /**
  * Saves settings to file
@@ -51,6 +52,36 @@ export const useSave = () => {
 
     if (success) {
       dispatch({ type: 'RESET_UNSAVED' })
+    }
+  }
+}
+
+/**
+ * Saves credentials online
+ * @return {function}
+ */
+export const useSync = () => {
+  const encrypt = useIpcRenderer('encrypt')
+  const dispatch = useDispatch()
+  const { credentials, config } = useSelector(state => {
+    return {
+      credentials: state.credentials.present,
+      config: state.config
+    }
+  })
+
+  return async (url) => {
+    try {
+      const [encrypted, data] = await encrypt({ payload: credentials, key: config.key })
+      if (!encrypted) throw data
+
+      const [success, result] = await updateFile(url, config.file, { data, name: config.file })
+      if (!success) throw result
+
+      console.log(success, result)
+      dispatch({ type: 'RESET_UNSAVED' })
+    } catch (err) {
+      console.log(err)
     }
   }
 }

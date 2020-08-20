@@ -108,6 +108,13 @@ const OnlineList = props => {
     // history.push('/')
   }
 
+  const reset = () => {
+    setLoaded(false)
+    setPassword('')
+    dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: '' })
+    dispatch({ type: 'RESET_CREDENTIALS' })
+  }
+
   const handleSubmit = async e => {
     try {
       e.preventDefault()
@@ -137,6 +144,7 @@ const OnlineList = props => {
         <div className='sidebar'>
           <FileSelect
             setPassword={setPassword}
+            reset={reset}
             setData={setData}
             files={files}
           />
