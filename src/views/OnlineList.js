@@ -6,10 +6,12 @@ import { useHistory } from 'react-router-dom'
 import Toolbar from '../components/Toolbar'
 import FileSelect from '../components/FileSelect'
 import CredentialSection from '../components/CredentialSection'
+import Modal from '../components/Modal'
 
 import { useIpcRenderer } from '../hooks/electron'
 import { useSaveSettings } from '../hooks/helpers'
 import { indexFiles, createFile } from '../helpers/api'
+import CreateFile from '../components/modals/CreateFile'
 
 const OnlineList = props => {
   const [url, setUrl] = useState('http://localhost:8086/api')
@@ -20,12 +22,11 @@ const OnlineList = props => {
   const [password, setPassword] = useState('')
   const [data, setData] = useState('')
   const [loaded, setLoaded] = useState(false)
+  const [hidden, setHidden] = useState(true)
   const history = useHistory()
   const dispatch = useDispatch()
   const setHash = useIpcRenderer('hash')
-  const encrypt = useIpcRenderer('encrypt')
   const decrypt = useIpcRenderer('decrypt')
-  const saveSettings = useSaveSettings()
 
   useEffect(() => {
     const getFiles = async () => {
@@ -53,59 +54,6 @@ const OnlineList = props => {
   const handleError = err => {
     setError(err || err.message)
     setLoading(false)
-  }
-
-  const handleChange = e => {
-    setFields({ ...fields, [e.target.name]: e.target.value })
-  }
-
-  /**
-   * Handles submission of the form
-   * @param {object} e
-   */
-  const handleCreate = async e => {
-    try {
-      // Reset defaults
-      e.preventDefault()
-      if (loading) return
-      if (error) setError('')
-      setLoading(true)
-
-      setLoading(false)
-    } catch (err) {
-      handleError(err)
-    }
-
-    // Generate the key hash
-    const [hashed, hash] = await setHash(fields.password)
-    if (!hashed) {
-      handleError('Hashing failed')
-      return
-    }
-
-    dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: hash })
-
-    // Blank credentials to save
-    const credentials = [{ id: 1, title: 'Title', username: 'Username', password: '' }]
-
-    // Save the blank credentials
-    const [encrypted, data] = await encrypt({ payload: credentials, key: hash })
-    if (!encrypted) {
-      handleError('Issue creating file')
-      return
-    }
-
-    const result = await createFile(url, fields.name, data)
-    console.log(result)
-
-    // dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: file })
-
-    // Set credentials and finish loading proces
-    // saveSettings({ config: { file: rememberFile ? file : '', rememberFile } })
-    // dispatch({ type: 'SET_CREDENTIALS', credentials })
-    // setLoading(false)
-    // dispatch({ type: 'UPDATE_CONFIG', config: 'loaded', value: true })
-    // history.push('/')
   }
 
   const reset = () => {
@@ -147,6 +95,7 @@ const OnlineList = props => {
             reset={reset}
             setData={setData}
             files={files}
+            handleModal={() => { setHidden(false) }}
           />
         </div>
         <CredentialSection
@@ -156,53 +105,10 @@ const OnlineList = props => {
           password={password}
           setPassword={setPassword}
         />
-        {/* <form onSubmit={handleCreate}>
-          <div className='enter-name'>
-            <h3>Create File Name</h3>
-            <input
-              type='text'
-              value={fields.name}
-              placeholder='Name'
-              onChange={handleChange}
-              name='name'
-            />
-          </div>
-          <div className='enter-password'>
-            <h3>Create File Password</h3>
-            <input
-              type='password'
-              value={fields.password}
-              placeholder='Password'
-              onChange={handleChange}
-              name='password'
-            />
-          </div>
-          <div className='confirm-password'>
-            <h3>Confirm Password</h3>
-            <input
-              type='password'
-              value={fields.confirm}
-              placeholder='Confirm'
-              onChange={handleChange}
-              name='confirm'
-            />
-            {fields.password !== fields.confirm ? (<p className='error'>Passwords do not match</p>) : ''}
-          </div>
-
-          <div className='submit'>
-            <input
-              type='submit'
-              disabled={loading}
-              value={loading ? 'Loading' : 'Submit'}
-            />
-            {error ? (<p className='error'>{error}</p>) : ''}
-          </div>
-
-          <div className='load'>
-            <p className='button' onClick={() => history.push('/')}>or Create File</p>
-          </div>
-
-        </form> */}
+        <Modal hidden={hidden} setHidden={setHidden}>
+          <CreateFile />
+        </Modal>
+        {/*  */}
       </main>
     </div>
   )

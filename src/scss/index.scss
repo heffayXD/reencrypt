@@ -22,7 +22,8 @@
 @import './components/_onboarding-text-input';
 @import './components/_onboarding-checkbox';
 
-@import './components/credential-section';
+@import './components/_credential-section';
+@import './components/_modal';
 
 * {
   margin: 0;

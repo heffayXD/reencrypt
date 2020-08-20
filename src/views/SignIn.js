@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import Toolbar from '../components/Toolbar'
@@ -15,10 +15,6 @@ const SignIn = props => {
   const [error, setError] = useState('')
   const history = useHistory()
   const dispatch = useDispatch()
-  const state = useSelector(state => {
-    console.log(state)
-    return state
-  })
 
   useEffect(() => {
     const tempFunc = async () => {
@@ -29,12 +25,8 @@ const SignIn = props => {
         if (!userData.token) throw userData
         setToken(userData.token)
 
-        dispatch({
-          type: 'UPDATE_CONFIG',
-          config: 'username',
-          value: remember ? credentials.username : ''
-        })
-
+        const username = remember ? credentials.username : ''
+        dispatch({ type: 'UPDATE_CONFIG', config: 'username', value: username })
         dispatch({ type: 'UPDATE_CONFIG', config: 'offline', value: false })
 
         setLoading(false)
@@ -84,11 +76,9 @@ const SignIn = props => {
       if (!userData.token) throw userData
       setToken(userData.token)
 
-      dispatch({
-        type: 'UPDATE_CONFIG',
-        config: 'username',
-        value: remember ? credentials.username : ''
-      })
+      const username = remember ? credentials.username : ''
+      dispatch({ type: 'UPDATE_CONFIG', config: 'username', value: username })
+      dispatch({ type: 'UPDATE_CONFIG', config: 'offline', value: false })
 
       setLoading(false)
       history.push('/online-list')

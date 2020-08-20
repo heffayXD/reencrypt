@@ -6,7 +6,7 @@ import FileItem from './FileItem'
 import { getFile } from '../helpers/api'
 
 const FileSelect = props => {
-  const { files } = props
+  const { files, handleModal } = props
   const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState('')
   const dispatch = useDispatch()
@@ -40,6 +40,7 @@ const FileSelect = props => {
           selected={file === selected}
         />
       ))}
+      <li className='file-item' onClick={handleModal}>+</li>
     </ul>
   )
 }
