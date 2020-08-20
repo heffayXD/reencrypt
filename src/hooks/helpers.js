@@ -34,6 +34,7 @@ export const useSaveSettings = () => {
  * @return {function}
  */
 export const useSave = () => {
+  const encrypt = useIpcRenderer('encrypt')
   const onSave = useIpcRenderer('save')
   const dispatch = useDispatch()
   const { credentials, config } = useSelector(state => {
@@ -43,7 +44,7 @@ export const useSave = () => {
     }
   })
 
-  return async () => {
+  const saveOffline = async () => {
     const [success] = await onSave({
       payload: credentials,
       file: config.file,
@@ -54,28 +55,13 @@ export const useSave = () => {
       dispatch({ type: 'RESET_UNSAVED' })
     }
   }
-}
 
-/**
- * Saves credentials online
- * @return {function}
- */
-export const useSync = () => {
-  const encrypt = useIpcRenderer('encrypt')
-  const dispatch = useDispatch()
-  const { credentials, config } = useSelector(state => {
-    return {
-      credentials: state.credentials.present,
-      config: state.config
-    }
-  })
-
-  return async (url) => {
+  const saveOnline = async () => {
     try {
       const [encrypted, data] = await encrypt({ payload: credentials, key: config.key })
       if (!encrypted) throw data
 
-      const [success, result] = await updateFile(url, config.file, { data, name: config.file })
+      const [success, result] = await updateFile(config.url, config.file, { data, name: config.file })
       if (!success) throw result
 
       console.log(success, result)
@@ -84,6 +70,8 @@ export const useSync = () => {
       console.log(err)
     }
   }
+
+  return config.offline ? saveOffline : saveOnline
 }
 
 /**

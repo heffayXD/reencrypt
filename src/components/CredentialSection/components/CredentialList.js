@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import InputList from '../../InputList'
 import FloatingMenu from '../../FloatingMenu'
 
-import { useFocus, useSync } from '../../../hooks/helpers'
+import { useFocus, useSave } from '../../../hooks/helpers'
 
 const CredentialList = props => {
   const [keys, setKeys] = useState([])
   const dispatch = useDispatch()
   const focusSearch = useFocus('search', true)
-  const handleSave = useSync()
+  const handleSave = useSave()
   const { credentials, searchEnabled } = useSelector(state => {
     return {
       credentials: state.credentials,

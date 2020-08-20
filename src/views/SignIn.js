@@ -35,6 +35,8 @@ const SignIn = props => {
           value: remember ? credentials.username : ''
         })
 
+        dispatch({ type: 'UPDATE_CONFIG', config: 'offline', value: false })
+
         setLoading(false)
         history.push('/online-list')
       } catch (err) {

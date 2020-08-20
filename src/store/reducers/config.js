@@ -3,7 +3,9 @@ const DEFAULT_STATE = {
   key: '',
   rememberFile: false,
   loaded: false,
-  username: ''
+  username: '',
+  url: 'http://localhost:8086/api',
+  offline: true
 }
 
 export default (state = DEFAULT_STATE, action) => {
