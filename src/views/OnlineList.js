@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 import Toolbar from '../components/Toolbar'
 import FileSelect from '../components/FileSelect'
+import CredentialList from '../components/CredentialList'
 
 import { useIpcRenderer } from '../hooks/electron'
 import { useSaveSettings } from '../hooks/helpers'
@@ -132,7 +133,7 @@ const OnlineList = props => {
       )
     }
 
-    return (<h1>Success!</h1>)
+    return (<CredentialList />)
   }
 
   const handleSubmit = async e => {
@@ -149,8 +150,8 @@ const OnlineList = props => {
       if (!decrypted) throw credentials
 
       dispatch({ type: 'SET_CREDENTIALS', credentials })
+      setLoaded(true)
       setLoading(false)
-      dispatch({ type: 'UPDATE_CONFIG', config: 'loaded', value: true })
     } catch (err) {
       console.log(err)
       setLoading(false)
