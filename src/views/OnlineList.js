@@ -16,10 +16,14 @@ const OnlineList = props => {
   const [fields, setFields] = useState({ name: '', password: '', confirm: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [password, setPassword] = useState('')
+  const [data, setData] = useState('')
+  const [loaded, setLoaded] = useState(false)
   const history = useHistory()
   const dispatch = useDispatch()
   const setHash = useIpcRenderer('hash')
   const encrypt = useIpcRenderer('encrypt')
+  const decrypt = useIpcRenderer('decrypt')
   const saveSettings = useSaveSettings()
 
   useEffect(() => {
@@ -103,15 +107,69 @@ const OnlineList = props => {
     // history.push('/')
   }
 
+  const handlePassword = e => {
+    setPassword(e.target.value)
+  }
+
+  const getCredentialScreen = () => {
+    if (!data) {
+      return (<h1>Please select a file</h1>)
+    }
+
+    if (!loaded) {
+      return (
+        <form
+          onSubmit={handleSubmit}
+        >
+          <input
+            type='password'
+            onChange={handlePassword}
+            name='password'
+            value={password}
+          />
+          <button type='submit'>Submit</button>
+        </form>
+      )
+    }
+
+    return (<h1>Success!</h1>)
+  }
+
+  const handleSubmit = async e => {
+    try {
+      e.preventDefault()
+
+      // Generate the key hash
+      const [hashed, hash] = await setHash(password)
+      if (!hashed) throw hash
+
+      dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: hash })
+
+      const [decrypted, credentials] = await decrypt({ data, key: hash })
+      if (!decrypted) throw credentials
+
+      dispatch({ type: 'SET_CREDENTIALS', credentials })
+      setLoading(false)
+      dispatch({ type: 'UPDATE_CONFIG', config: 'loaded', value: true })
+    } catch (err) {
+      console.log(err)
+      setLoading(false)
+    }
+  }
+
   return (
     <div>
       <Toolbar />
       <main id='online-list'>
         <div className='sidebar'>
-          <FileSelect files={files} />
+          <FileSelect
+            setPassword={setPassword}
+            setData={setData}
+            files={files}
+          />
         </div>
         <div className='credentials'>
-          <h1>Please select a file</h1>
+          {getCredentialScreen()}
         </div>
         {/* <form onSubmit={handleCreate}>
           <div className='enter-name'>

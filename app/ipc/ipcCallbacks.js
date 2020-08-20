@@ -216,3 +216,24 @@ export const onEncrypt = async (app, event, config) => {
     event.reply('encrypt-reply', [false, err.message])
   }
 }
+
+/**
+ * Handles the On Load IPC Event
+ * @param {object} app, @param {object} event, @param {object} config
+ */
+export const onDecrypt = async (app, event, config) => {
+  try {
+    try {
+      const decrypt = useDecryptCredentials()
+      const [success, decryptedData] = await decrypt(config.data, config.key)
+
+      if (!success) throw new Error(`Decryption failed: ${decryptedData}`)
+
+      event.reply('decrypt-reply', [true, decryptedData])
+    } catch (err) {
+      event.reply('decrypt-reply', [false, err.message])
+    }
+  } catch (err) {
+    event.reply('decrypt-reply', [false, err.message])
+  }
+}

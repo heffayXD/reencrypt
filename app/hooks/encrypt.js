@@ -93,7 +93,6 @@ export const useDecryptCredentials = () => {
       const data = aesjs.utils.utf8.fromBytes(decrypted)
 
       const [success, fixed] = fixObject(data)
-
       if (!success) throw new Error('Parsing failed')
 
       return [true, fixed]

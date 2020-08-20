@@ -34,3 +34,12 @@ export const createFile = async (url, name, data) => {
     return [false, err]
   }
 }
+
+export const getFile = async (url, file) => {
+  try {
+    const result = await axios.get(`${url}/file/${file}`)
+    return [true, result.data]
+  } catch (err) {
+    return [false, err]
+  }
+}
