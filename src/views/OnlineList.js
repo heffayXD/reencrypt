@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 
 import Toolbar from '../components/Toolbar'
 import FileSelect from '../components/FileSelect'
-import CredentialList from '../components/CredentialList'
+import CredentialSection from '../components/CredentialSection'
 
 import { useIpcRenderer } from '../hooks/electron'
 import { useSaveSettings } from '../hooks/helpers'
@@ -108,34 +108,6 @@ const OnlineList = props => {
     // history.push('/')
   }
 
-  const handlePassword = e => {
-    setPassword(e.target.value)
-  }
-
-  const getCredentialScreen = () => {
-    if (!data) {
-      return (<h1>Please select a file</h1>)
-    }
-
-    if (!loaded) {
-      return (
-        <form
-          onSubmit={handleSubmit}
-        >
-          <input
-            type='password'
-            onChange={handlePassword}
-            name='password'
-            value={password}
-          />
-          <button type='submit'>Submit</button>
-        </form>
-      )
-    }
-
-    return (<CredentialList />)
-  }
-
   const handleSubmit = async e => {
     try {
       e.preventDefault()
@@ -169,9 +141,13 @@ const OnlineList = props => {
             files={files}
           />
         </div>
-        <div className='credentials'>
-          {getCredentialScreen()}
-        </div>
+        <CredentialSection
+          handleSubmit={handleSubmit}
+          data={data}
+          loaded={loaded}
+          password={password}
+          setPassword={setPassword}
+        />
         {/* <form onSubmit={handleCreate}>
           <div className='enter-name'>
             <h3>Create File Name</h3>

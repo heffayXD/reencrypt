@@ -22,6 +22,8 @@
 @import './components/_onboarding-text-input';
 @import './components/_onboarding-checkbox';
 
+@import './components/credential-section';
+
 * {
   margin: 0;
   padding: 0;
@@ -43,6 +45,7 @@ body {
   height: calc(100%);
   overflow-y: auto;
   border-right: 2px solid $dp02;
+  min-width: 100px;
 }
 
 .overlay {
