@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 
-import { useIpcRenderer } from '../../hooks/electron'
-import { createFile } from '../../helpers/api'
+import { useIpcRenderer } from '../../../hooks/electron'
+import { createFile } from '../../../helpers/api'
 
 const CreateFile = props => {
   const dispatch = useDispatch()

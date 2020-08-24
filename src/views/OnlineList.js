@@ -9,7 +9,7 @@ import Modal from '../components/Modal'
 
 import { useIpcRenderer } from '../hooks/electron'
 import { indexFiles } from '../helpers/api'
-import CreateFile from '../components/modals/CreateFile'
+import CreateFile from '../components/Modal/components/CreateFile'
 
 const OnlineList = props => {
   const [url, setUrl] = useState('http://localhost:8086/api')
