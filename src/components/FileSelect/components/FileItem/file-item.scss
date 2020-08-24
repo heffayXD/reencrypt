@@ -1,0 +1,54 @@
+@import '../../../../scss/variables';
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h4 {
+        padding: 10px;
+    }
+
+    .icon-container {
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 36px;
+        height: 100%;
+        padding: 10px;
+        padding-left: 2px;
+        padding-right: 2px;
+        outline-color: transparent;
+        margin-right:2px;
+        &:hover {
+            cursor: pointer;
+            background-color: $dp06;
+            &.alert {
+                background-color: rgba(255, 0, 0, 0.6);
+            }
+        }
+        &:active {
+            background-color: $active;
+            outline-color: $active;
+            &.alert {
+                background-color: rgba(255, 0, 0, 0.2);
+                outline-color: $active;
+            }
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: $dp02;
+        .icon-container {
+            opacity: 1;
+        }
+    }
+    &.selected {
+        background-color: $dp04;
+    }
+    &:active {
+        background-color: $active;
+    }
+}

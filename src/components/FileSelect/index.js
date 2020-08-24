@@ -41,7 +41,9 @@ const FileSelect = props => {
           selected={file === selected}
         />
       ))}
-      <li className='file-item' onClick={handleModal}>+</li>
+      <li className='file-item' onClick={handleModal}>
+        <h4>+</h4>
+      </li>
     </ul>
   )
 }
