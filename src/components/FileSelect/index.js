@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import FileItem from './FileItem'
+import FileItem from './components/FileItem'
 
-import { getFile } from '../helpers/api'
+import { getFile } from '../../helpers/api'
 
 const FileSelect = props => {
   const { files, handleModal } = props
