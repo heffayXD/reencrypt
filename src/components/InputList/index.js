@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import ListSort from './ListSort'
-import ListItem from './ListItem.js'
+import ListSort from './components/ListSort'
+import ListItem from './components/ListItem.js'
 
 const InputList = props => {
   const [sort, setSort] = useState({ active: '', direction: 'asc' })

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faCopy, faEye, faEyeSlash, faCogs } from '@fortawesome/free-solid-svg-icons'
-import { useClipboard, useDialog } from '../hooks/electron'
-import { useGenerate } from '../hooks/password'
+import { useClipboard, useDialog } from '../../../hooks/electron'
+import { useGenerate } from '../../../hooks/password'
 import { useSelector } from 'react-redux'
 
 const ListItem = props => {
