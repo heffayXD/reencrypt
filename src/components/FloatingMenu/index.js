@@ -1,8 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import './floating-menu.scss'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faSave, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { useFocus, useSave } from '../hooks/helpers'
+
+import { useFocus, useSave } from '../../hooks/helpers'
 
 const FloatingMenu = props => {
   const dispatch = useDispatch()

@@ -1,4 +1,6 @@
 import React from 'react'
+import './list-sort.scss'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 

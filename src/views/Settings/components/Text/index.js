@@ -1,4 +1,5 @@
 import React from 'react'
+import './text.scss'
 
 const SettingsText = props => {
   return (

@@ -1,8 +1,11 @@
 import React from 'react'
+import './toolbar.scss'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { useBrowserWindow } from '../hooks/electron'
 import { useHistory } from 'react-router-dom'
+
+import { useBrowserWindow } from '../../hooks/electron'
 
 const Toolbar = props => {
   const handleWindow = useBrowserWindow()

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import './file-select.scss'
 
 import FileItem from './components/FileItem'
 

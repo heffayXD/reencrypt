@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
-import Toolbar from '../../components/Toolbar'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import './settings.scss'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+
 import { useRegexBuilder } from '../../hooks/password'
 import { useDialog, useIpcRenderer } from '../../hooks/electron'
 import { useSaveSettings, useSave, useReset } from '../../hooks/helpers'
+
+import Toolbar from '../../components/Toolbar'
 import SettingsExpand from './components/Expand'
 import SettingsCheckbox from './components/Checkbox'
 import SettingsText from './components/Text'

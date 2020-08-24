@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import Toolbar from '../components/Toolbar'
-import InputList from '../components/InputList'
-import FloatingMenu from '../components/FloatingMenu'
 import { useDispatch, useSelector } from 'react-redux'
-import { useFocus, useSave } from '../hooks/helpers'
+import './credential-list.scss'
+
+import { useFocus, useSave } from '../../hooks/helpers'
+
+import Toolbar from '../../components/Toolbar'
+import InputList from '../../components/InputList'
+import FloatingMenu from '../../components/FloatingMenu'
 
 const CredentialList = props => {
   const [keys, setKeys] = useState([])

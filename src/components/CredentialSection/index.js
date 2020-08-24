@@ -1,4 +1,5 @@
 import React from 'react'
+import './credential-section.scss'
 
 import CredentialList from './components/CredentialList'
 

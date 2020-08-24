@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import './create-file.scss'
 
-import Toolbar from '../components/Toolbar'
-import Checkbox from '../components/onboarding/Checkbox'
+import Toolbar from '../../components/Toolbar'
+import Checkbox from '../../components/onboarding/Checkbox'
 
-import { useIpcRenderer } from '../hooks/electron'
-import { useSaveSettings } from '../hooks/helpers'
+import { useIpcRenderer } from '../../hooks/electron'
+import { useSaveSettings } from '../../hooks/helpers'
 
 const CreateFile = props => {
   const [password, setPassword] = useState('')

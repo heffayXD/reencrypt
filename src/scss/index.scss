@@ -2,28 +2,8 @@
 @import './variables';
 @import './forms';
 
-// Views
-@import './views/_credentials-list';
-@import './views/_settings';
-@import './views/_load-file';
-@import './views/_online-list';
-
-// Components
-@import './components/_toolbar';
-@import './components/_input-list';
-@import './components/_list-sort';
-@import './components/_list-item';
-@import './components/_floating-menu';
-@import './components/_settings-checkbox';
-@import './components/_settings-text';
-@import './components/_settings-expand';
-@import './components/file-select';
-
 @import './components/_onboarding-text-input';
 @import './components/_onboarding-checkbox';
-
-@import './components/_credential-section';
-@import './components/_modal';
 
 * {
   margin: 0;
