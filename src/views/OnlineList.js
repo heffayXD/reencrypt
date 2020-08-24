@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -9,14 +8,12 @@ import CredentialSection from '../components/CredentialSection'
 import Modal from '../components/Modal'
 
 import { useIpcRenderer } from '../hooks/electron'
-import { useSaveSettings } from '../hooks/helpers'
-import { indexFiles, createFile } from '../helpers/api'
+import { indexFiles } from '../helpers/api'
 import CreateFile from '../components/modals/CreateFile'
 
 const OnlineList = props => {
   const [url, setUrl] = useState('http://localhost:8086/api')
   const [files, setFiles] = useState([])
-  const [fields, setFields] = useState({ name: '', password: '', confirm: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [password, setPassword] = useState('')
@@ -28,24 +25,23 @@ const OnlineList = props => {
   const setHash = useIpcRenderer('hash')
   const decrypt = useIpcRenderer('decrypt')
 
-  useEffect(() => {
-    const getFiles = async () => {
-      try {
-        const [success, result] = await indexFiles(url)
-        if (!success) throw result
+  const getFiles = async () => {
+    try {
+      setLoading(true)
 
-        setFiles(result.files)
-        setLoading(false)
-      } catch (err) {
-        console.error(err)
-        setLoading(false)
-        history.push('/sign-in')
-      }
+      const [success, result] = await indexFiles(url)
+      if (!success) throw result
+
+      setFiles(result.files)
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+      setLoading(false)
+      history.push('/sign-in')
     }
+  }
 
-    setLoading(true)
-    getFiles()
-  }, [])
+  useEffect(() => { getFiles() }, [])
 
   /**
    * Handles setting an error
@@ -106,9 +102,8 @@ const OnlineList = props => {
           setPassword={setPassword}
         />
         <Modal hidden={hidden} setHidden={setHidden}>
-          <CreateFile />
+          <CreateFile setHidden={setHidden} getFiles={getFiles} />
         </Modal>
-        {/*  */}
       </main>
     </div>
   )

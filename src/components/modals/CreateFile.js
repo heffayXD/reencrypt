@@ -39,42 +39,44 @@ const CreateFile = props => {
       if (error) setError('')
       setLoading(true)
 
+      // Generate the key hash
+      const [hashed, hash] = await setHash(fields.password)
+      if (!hashed) {
+        handleError('Hashing failed')
+        return
+      }
+
+      dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: hash })
+
+      // Blank credentials to save
+      const credentials = [{ id: 1, title: 'Title', username: 'Username', password: '' }]
+
+      // Save the blank credentials
+      const [encrypted, data] = await encrypt({ payload: credentials, key: hash })
+      if (!encrypted) {
+        handleError('Issue creating file')
+        return
+      }
+
+      const result = await createFile(url, fields.name, data)
+      console.log(result)
+
+      dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: fields.name })
+
+      // Set credentials and finish loading proces
+      dispatch({ type: 'SET_CREDENTIALS', credentials })
+
+      props.getFiles()
+      setFields({ name: '', password: '', confirm: '' })
       setLoading(false)
+      props.setHidden(true)
     } catch (err) {
       handleError(err)
     }
-
-    // Generate the key hash
-    const [hashed, hash] = await setHash(fields.password)
-    if (!hashed) {
-      handleError('Hashing failed')
-      return
-    }
-
-    dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: hash })
-
-    // Blank credentials to save
-    const credentials = [{ id: 1, title: 'Title', username: 'Username', password: '' }]
-
-    // Save the blank credentials
-    const [encrypted, data] = await encrypt({ payload: credentials, key: hash })
-    if (!encrypted) {
-      handleError('Issue creating file')
-      return
-    }
-
-    const result = await createFile(url, fields.name, data)
-    console.log(result)
-
-    dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: fields.name })
-
-    // Set credentials and finish loading proces
-    dispatch({ type: 'SET_CREDENTIALS', credentials })
-    setLoading(false)
   }
 
   return (
-    <form onSubmit={handleCreate}>
+    <form id='create-file-modal' onSubmit={handleCreate}>
 
       <div className='enter-name'>
         <h3>Create File Name</h3>
@@ -110,12 +112,17 @@ const CreateFile = props => {
         {fields.password !== fields.confirm ? (<p className='error'>Passwords do not match</p>) : ''}
       </div>
 
-      <div className='submit'>
+      <div className='submit-container'>
         <input
           type='submit'
           disabled={loading}
           value={loading ? 'Loading' : 'Submit'}
         />
+        <button
+          onClick={() => { props.setHidden(true) }}
+        >
+          Cancel
+        </button>
         {error ? (<p className='error'>{error}</p>) : ''}
       </div>
 

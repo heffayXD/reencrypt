@@ -28,3 +28,34 @@
         display: none;
     }
 }
+
+#create-file-modal {
+    text-align: center;
+    h3 {
+        padding: 10px;
+    }
+    input {
+        text-align: center;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .error {
+        padding-top: 10px;
+        color: red;
+    }
+    input[type="submit"] {
+        margin-top: 20px;
+    }
+    .submit-container {
+        input, button {
+            margin: 20px;
+        }
+        button {
+            text-align: center;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+    }
+}
