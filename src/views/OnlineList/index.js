@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './online-list.scss'
 
+import { useIpcRenderer } from '../../hooks/electron'
+import { indexFiles } from '../../helpers/api'
+
 import Toolbar from '../../components/Toolbar'
 import FileSelect from '../../components/FileSelect'
 import CredentialSection from '../../components/CredentialSection'
 import Modal from '../../components/Modal'
-
-import { useIpcRenderer } from '../../hooks/electron'
-import { indexFiles } from '../../helpers/api'
 import CreateFile from '../../components/Modal/components/CreateFile'
 
 const OnlineList = props => {
