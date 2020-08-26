@@ -7,7 +7,7 @@ import FileItem from './components/FileItem'
 import { getFile } from '../../helpers/api'
 
 const FileSelect = props => {
-  const { files, handleModal } = props
+  const { files, setFiles, handleModal } = props
   const [loading, setLoading] = useState(false)
   const [selected, setSelected] = useState('')
   const dispatch = useDispatch()
@@ -31,6 +31,10 @@ const FileSelect = props => {
     }
   }
 
+  const handleRemove = fileName => {
+    setFiles(files.filter(file => file !== fileName))
+  }
+
   return (
     <ul id='file-select'>
       {files.map(file => (
@@ -38,6 +42,7 @@ const FileSelect = props => {
           key={`file-${file}`}
           file={file}
           onClick={handleClick}
+          onRemove={handleRemove}
           selected={file === selected}
         />
       ))}

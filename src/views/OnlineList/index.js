@@ -92,6 +92,7 @@ const OnlineList = props => {
             reset={reset}
             setData={setData}
             files={files}
+            setFiles={setFiles}
             handleModal={() => { setHidden(false) }}
           />
         </div>

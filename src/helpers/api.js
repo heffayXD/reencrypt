@@ -52,3 +52,12 @@ export const updateFile = async (url, file, payload) => {
     return [false, err]
   }
 }
+
+export const deleteFile = async (url, file) => {
+  try {
+    const result = await axios.delete(`${url}/file/${file}`)
+    return [true, result.data]
+  } catch (err) {
+    return [false, err]
+  }
+}

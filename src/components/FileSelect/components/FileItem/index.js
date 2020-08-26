@@ -4,17 +4,34 @@ import './file-item.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
+import { useDialog } from '../../../../hooks/electron'
+import { useFileREST } from '../../../../hooks/api'
+
 const FileItem = props => {
-  const { file, onClick, selected } = props
+  const { file, onClick, selected, onRemove } = props
+  const destroyFile = useFileREST('destroy')
+  const dialog = useDialog()
 
   const handleClick = e => {
     e.preventDefault()
     onClick(file)
   }
 
-  const handleDelete = e => {
-    e.preventDefault()
-    console.log(file)
+  const handleDelete = async e => {
+    try {
+      e.preventDefault()
+
+      const response = await dialog(`Are you sure you want to delete "${file}"?`)
+
+      if (response === 0) {
+        const [success, message] = await destroyFile(file)
+        if (!success) throw message
+
+        onRemove(file)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

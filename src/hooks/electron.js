@@ -45,10 +45,7 @@ export const useBrowserWindow = () => {
 export const useDialog = () => {
   return async (message, type = 'question', buttons = ['Yes', 'Cancel']) => {
     const result = await remote.dialog.showMessageBox(remote.BrowserWindow.getFocusedWindow(), {
-      type,
-      buttons,
-      message,
-      defaultId: 0
+      type, buttons, message, defaultId: 0, title: 're:Encrypt'
     })
 
     return result.response
