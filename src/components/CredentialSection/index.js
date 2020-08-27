@@ -1,10 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import './credential-section.scss'
 
 import CredentialList from './components/CredentialList'
 
 const CredentialSelection = props => {
-  const { handleSubmit, data, loaded, password, setPassword } = props
+  const { handleSubmit, loaded, password, setPassword } = props
+  const { data } = useSelector(state => state.fileList.selected)
 
   const handlePassword = e => {
     setPassword(e.target.value)

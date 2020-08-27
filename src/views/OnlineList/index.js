@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './online-list.scss'
 
@@ -14,10 +14,10 @@ import CreateFile from '../../components/Modal/components/CreateFile'
 
 const OnlineList = props => {
   const [url, setUrl] = useState('http://localhost:8086/api')
+  const { data } = useSelector(state => state.fileList.selected)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [password, setPassword] = useState('')
-  const [data, setData] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [hidden, setHidden] = useState(true)
   const history = useHistory()
@@ -89,13 +89,11 @@ const OnlineList = props => {
           <FileSelect
             setPassword={setPassword}
             reset={reset}
-            setData={setData}
             handleModal={() => { setHidden(false) }}
           />
         </div>
         <CredentialSection
           handleSubmit={handleSubmit}
-          data={data}
           loaded={loaded}
           password={password}
           setPassword={setPassword}

@@ -7,24 +7,25 @@ import FileItem from './components/FileItem'
 import { getFile } from '../../helpers/api'
 
 const FileSelect = props => {
-  const { handleModal } = props
+  const { handleModal, reset } = props
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
-  const { files, selected } = useSelector(state => state.fileList)
+  const { files, selected } = useSelector(state => {
+    console.log(state.fileList)
+    return state.fileList
+  })
 
-  const handleClick = async fileName => {
+  const handleClick = async file => {
     try {
       if (loading) return
       setLoading(true)
 
-      const [success, result] = await getFile('http://localhost:8086/api', fileName)
+      const [success, result] = await getFile('http://localhost:8086/api', file)
       if (!success) throw result
 
-      props.reset()
-      props.setData(result)
-
-      dispatch({ type: 'SET_SELECTED', selected: fileName })
-      dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: fileName })
+      dispatch({ type: 'SET_SELECTED', selected: { name: file, data: result } })
+      dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: file })
+      reset()
 
       setLoading(false)
     } catch (err) {
@@ -40,7 +41,7 @@ const FileSelect = props => {
           key={`file-${file}`}
           file={file}
           onClick={handleClick}
-          selected={file === selected}
+          selected={file === selected.name}
         />
       ))}
       <li className='file-item' onClick={handleModal}>

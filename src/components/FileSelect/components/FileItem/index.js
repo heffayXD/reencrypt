@@ -29,9 +29,9 @@ const FileItem = props => {
         const [success, message] = await destroyFile(file)
         if (!success) throw message
 
-        dispatch({ type: 'SET_SELECTED', selected: '' })
-        dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: '' })
         dispatch({ type: 'REMOVE_FILE', file })
+        dispatch({ type: 'RESET_SELECTED' })
+        dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: '' })
       }
     } catch (err) {
       console.log(err)
