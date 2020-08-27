@@ -1,5 +1,8 @@
 const DEFAULT_STATE = {
-  selected: '',
+  selected: {
+    name: '',
+    data: ''
+  },
   files: []
 }
 
@@ -12,7 +15,7 @@ export default (state = DEFAULT_STATE, action) => {
     case 'SET_FILES':
       return { ...state, files: action.files }
     case 'SET_SELECTED':
-      return { ...state, selected: action.selected }
+      return { ...state, selected: { ...action.selected } }
     case 'RESET_FILES':
       return { ...DEFAULT_STATE }
     default:
