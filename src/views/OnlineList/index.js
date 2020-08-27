@@ -14,7 +14,6 @@ import CreateFile from '../../components/Modal/components/CreateFile'
 
 const OnlineList = props => {
   const [url, setUrl] = useState('http://localhost:8086/api')
-  const [files, setFiles] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [password, setPassword] = useState('')
@@ -33,7 +32,7 @@ const OnlineList = props => {
       const [success, result] = await indexFiles(url)
       if (!success) throw result
 
-      setFiles(result.files)
+      dispatch({ type: 'SET_FILES', files: result.files })
       setLoading(false)
     } catch (err) {
       console.error(err)
@@ -91,8 +90,6 @@ const OnlineList = props => {
             setPassword={setPassword}
             reset={reset}
             setData={setData}
-            files={files}
-            setFiles={setFiles}
             handleModal={() => { setHidden(false) }}
           />
         </div>

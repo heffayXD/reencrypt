@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './file-select.scss'
 
 import FileItem from './components/FileItem'
@@ -7,10 +7,10 @@ import FileItem from './components/FileItem'
 import { getFile } from '../../helpers/api'
 
 const FileSelect = props => {
-  const { files, setFiles, handleModal } = props
+  const { handleModal } = props
   const [loading, setLoading] = useState(false)
-  const [selected, setSelected] = useState('')
   const dispatch = useDispatch()
+  const { files, selected } = useSelector(state => state.fileList)
 
   const handleClick = async fileName => {
     try {
@@ -22,17 +22,15 @@ const FileSelect = props => {
 
       props.reset()
       props.setData(result)
-      setSelected(fileName)
+
+      dispatch({ type: 'SET_SELECTED', selected: fileName })
       dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: fileName })
+
       setLoading(false)
     } catch (err) {
       console.log(err)
       setLoading(false)
     }
-  }
-
-  const handleRemove = fileName => {
-    setFiles(files.filter(file => file !== fileName))
   }
 
   return (
@@ -42,7 +40,6 @@ const FileSelect = props => {
           key={`file-${file}`}
           file={file}
           onClick={handleClick}
-          onRemove={handleRemove}
           selected={file === selected}
         />
       ))}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import './file-item.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,8 +9,9 @@ import { useDialog } from '../../../../hooks/electron'
 import { useFileREST } from '../../../../hooks/api'
 
 const FileItem = props => {
-  const { file, onClick, selected, onRemove } = props
+  const { file, onClick, selected } = props
   const destroyFile = useFileREST('destroy')
+  const dispatch = useDispatch()
   const dialog = useDialog()
 
   const handleClick = e => {
@@ -27,7 +29,9 @@ const FileItem = props => {
         const [success, message] = await destroyFile(file)
         if (!success) throw message
 
-        onRemove(file)
+        dispatch({ type: 'SET_SELECTED', selected: '' })
+        dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: '' })
+        dispatch({ type: 'REMOVE_FILE', file })
       }
     } catch (err) {
       console.log(err)
