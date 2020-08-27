@@ -13,10 +13,8 @@ import Modal from '../../components/Modal'
 import CreateFile from '../../components/Modal/components/CreateFile'
 
 const OnlineList = props => {
-  const [url, setUrl] = useState('http://localhost:8086/api')
-  const { data } = useSelector(state => state.fileList.selected)
+  const [url, { data }] = useSelector(state => [state.config.url, state.fileList.selected])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
   const [password, setPassword] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [hidden, setHidden] = useState(true)
@@ -27,6 +25,7 @@ const OnlineList = props => {
 
   const getFiles = async () => {
     try {
+      if (loading) return
       setLoading(true)
 
       const [success, result] = await indexFiles(url)
@@ -35,8 +34,7 @@ const OnlineList = props => {
       dispatch({ type: 'SET_FILES', files: result.files })
       setLoading(false)
     } catch (err) {
-      console.error(err)
-      setLoading(false)
+      handleError(err)
       history.push('/sign-in')
     }
   }
@@ -48,7 +46,7 @@ const OnlineList = props => {
    * @param {string} error
    */
   const handleError = err => {
-    setError(err || err.message)
+    console.error(err || err.message)
     setLoading(false)
   }
 
@@ -76,8 +74,7 @@ const OnlineList = props => {
       setLoaded(true)
       setLoading(false)
     } catch (err) {
-      console.log(err)
-      setLoading(false)
+      handleError(err)
     }
   }
 
