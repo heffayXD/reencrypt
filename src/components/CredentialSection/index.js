@@ -1,15 +1,47 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import './credential-section.scss'
 
 import CredentialList from './components/CredentialList'
 
-const CredentialSelection = props => {
-  const { handleSubmit, loaded, password, setPassword, error } = props
+import { useIpcRenderer } from '../../hooks/electron'
+
+const CredentialSelection = () => {
   const { data, name } = useSelector(state => state.fileList.selected)
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+  const setHash = useIpcRenderer('hash')
+  const decrypt = useIpcRenderer('decrypt')
+  const dispatch = useDispatch()
 
   const handlePassword = e => {
     setPassword(e.target.value)
+  }
+
+  const handleSubmit = async e => {
+    try {
+      e.preventDefault()
+      if (loading) return
+      setLoading(true)
+      setError('')
+
+      // Generate the key hash
+      const [hashed, hash] = await setHash(password)
+      if (!hashed) throw hash
+
+      dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: hash })
+
+      const [decrypted, credentials] = await decrypt({ data, key: hash })
+      if (!decrypted) throw credentials
+
+      dispatch({ type: 'SET_CREDENTIALS', credentials })
+      setLoaded(true)
+      setLoading(false)
+    } catch (err) {
+      setError('Incorrect Password')
+    }
   }
 
   const getContents = () => {

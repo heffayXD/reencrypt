@@ -25,7 +25,8 @@ const FileSelect = props => {
 
       dispatch({ type: 'SET_SELECTED', selected: { name: file, data: result } })
       dispatch({ type: 'UPDATE_CONFIG', config: 'file', value: file })
-      reset()
+      dispatch({ type: 'UPDATE_CONFIG', config: 'key', value: '' })
+      dispatch({ type: 'RESET_CREDENTIALS' })
 
       setLoading(false)
     } catch (err) {
