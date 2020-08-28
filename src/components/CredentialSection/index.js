@@ -5,8 +5,8 @@ import './credential-section.scss'
 import CredentialList from './components/CredentialList'
 
 const CredentialSelection = props => {
-  const { handleSubmit, loaded, password, setPassword } = props
-  const { data } = useSelector(state => state.fileList.selected)
+  const { handleSubmit, loaded, password, setPassword, error } = props
+  const { data, name } = useSelector(state => state.fileList.selected)
 
   const handlePassword = e => {
     setPassword(e.target.value)
@@ -22,7 +22,7 @@ const CredentialSelection = props => {
         <div className='enter-password'>
           <form onSubmit={handleSubmit}>
             <div className='input-container'>
-              <h2>Enter File Password</h2>
+              <h2>Enter Password for {name}</h2>
               <input
                 type='password'
                 onChange={handlePassword}
@@ -32,6 +32,7 @@ const CredentialSelection = props => {
               />
             </div>
             <button type='submit'>Submit</button>
+            {error ? (<p className='error'>{error}</p>) : ''}
           </form>
         </div>
       )

@@ -15,6 +15,7 @@ import CreateFile from '../../components/Modal/components/CreateFile'
 const OnlineList = props => {
   const [url, { data }] = useSelector(state => [state.config.url, state.fileList.selected])
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
   const [password, setPassword] = useState('')
   const [loaded, setLoaded] = useState(false)
   const [hidden, setHidden] = useState(true)
@@ -27,6 +28,7 @@ const OnlineList = props => {
     try {
       if (loading) return
       setLoading(true)
+      setError('')
 
       const [success, result] = await indexFiles(url)
       if (!success) throw result
@@ -47,6 +49,7 @@ const OnlineList = props => {
    */
   const handleError = err => {
     console.error(err || err.message)
+    setError(err || err.message)
     setLoading(false)
   }
 
@@ -60,6 +63,9 @@ const OnlineList = props => {
   const handleSubmit = async e => {
     try {
       e.preventDefault()
+      if (loading) return
+      setLoading(true)
+      setError('')
 
       // Generate the key hash
       const [hashed, hash] = await setHash(password)
@@ -74,7 +80,7 @@ const OnlineList = props => {
       setLoaded(true)
       setLoading(false)
     } catch (err) {
-      handleError(err)
+      handleError('Incorrect Password')
     }
   }
 
@@ -94,6 +100,7 @@ const OnlineList = props => {
           loaded={loaded}
           password={password}
           setPassword={setPassword}
+          error={error}
         />
         <Modal hidden={hidden} setHidden={setHidden}>
           <CreateFile setHidden={setHidden} getFiles={getFiles} />
