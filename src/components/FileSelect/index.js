@@ -7,7 +7,7 @@ import FileItem from './components/FileItem'
 import { getFile } from '../../helpers/api'
 
 const FileSelect = props => {
-  const { handleModal, reset } = props
+  const { handleModal } = props
   const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
   const { files, selected } = useSelector(state => {
