@@ -1,0 +1,90 @@
+// Main
+@import './variables';
+@import './forms';
+
+// @import './components/_onboarding-text-input';
+// @import './components/_onboarding-checkbox';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow:hidden;
+  background-color: $background;
+  color: $font-primary;
+  font-family: 'Roboto';
+  main {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 49px);
+  }
+}
+
+.sidebar {
+  height: calc(100%);
+  overflow-y: auto;
+  border-right: 2px solid $dp02;
+  min-width: 140px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  &.dp01 {
+    background-color: $dp01;
+  }
+  &.dp02 {
+    background-color: $dp02;
+  }
+  &.dp03 {
+    background-color: $dp03;
+  }
+  &.dp04 {
+    background-color: $dp04;
+  }
+  &.dp06 {
+    background-color: $dp06;
+  }
+  &.dp08 {
+    background-color: $dp08;
+  }
+  &.dp12 {
+    background-color: $dp12;
+  }
+  &.dp16 {
+    background-color: $dp16;
+  }
+  &.dp24 {
+    background-color: $dp24;
+  }
+}
+
+p, h1, h2, h3, h4, h5, label {
+  user-select: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: $active;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: $dp12;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $dp24;
+}
