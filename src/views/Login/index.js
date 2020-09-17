@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
+import { useAPI, setToken } from '../../hooks/api'
 import './login.scss'
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const signIn = useAPI('/user/sign-in', 'post')
 
   const handleSubmit = async e => {
     try {
       e.preventDefault()
+
+      const [success, result] = await signIn(credentials)
+      if (!success) throw result
+
+      setToken(result.token)
+      console.log(result.user)
     } catch (err) {
       console.log(err)
     }
