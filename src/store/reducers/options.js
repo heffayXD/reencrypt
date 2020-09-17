@@ -6,7 +6,8 @@ const DEFAULT_STATE = {
     useUpper: true,
     useNumbers: true,
     useSymbols: true,
-    useSpecial: false
+    useSpecial: false,
+    useSimilar: false
   },
   passwordLength: 16,
   passwordPattern: '[a-zA-Z0-9@#$%+?!&*|]',
