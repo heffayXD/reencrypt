@@ -1,14 +1,15 @@
 import React from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import './toolbar.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
-import { useHistory } from 'react-router-dom'
 
 import { useBrowserWindow } from '../../hooks/electron'
 
 const Toolbar = props => {
   const handleWindow = useBrowserWindow()
+  const location = useLocation()
   const history = useHistory()
 
   const handleClick = e => {
@@ -20,7 +21,7 @@ const Toolbar = props => {
       <h1>re:Encrypt</h1>
       <div className='draggable' />
       <div id='toolbar-buttons'>
-        {!props.settingsPage ? (
+        {location.pathname !== '/settings' ? (
           <div className='button-container' onClick={handleClick}>
             <FontAwesomeIcon icon={faCog} />
           </div>
