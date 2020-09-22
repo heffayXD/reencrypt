@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
-import { useAPI, setToken } from '../../hooks/api'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import './login.scss'
+
+import { useAPI, setToken } from '../../hooks/api'
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' })
   const signIn = useAPI('/user/sign-in', 'post')
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleSubmit = async e => {
     try {
@@ -13,8 +18,10 @@ const Login = () => {
       const [success, result] = await signIn(credentials)
       if (!success) throw result
 
+      // Set Token, user, then push to credentials
       setToken(result.token)
-      console.log(result.user)
+      dispatch({ type: 'SET_USER', user: result.user })
+      history.push('/credentials')
     } catch (err) {
       console.log(err)
     }
