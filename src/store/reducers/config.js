@@ -1,7 +1,6 @@
 const DEFAULT_STATE = {
   file: '',
   key: '',
-  username: '',
   url: 'http://localhost:8086/api'
 }
 

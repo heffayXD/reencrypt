@@ -5,15 +5,13 @@ import options from './options'
 import config from './config'
 import search from './search'
 import fileList from './fileList'
-import user from './user'
 
 const appReducer = combineReducers({
   credentials: undoable(credentials),
   options,
   config,
   search,
-  fileList,
-  user
+  fileList
 })
 
 const rootReducer = (state, action) => {
