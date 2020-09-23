@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import './credentials.scss'
 
 import CredentialList from './components/CredentialList'
+import Sidebar from './components/Sidebar'
 import { useInitFiles } from '../../hooks/helpers'
 
 const Credentials = () => {
@@ -38,6 +39,7 @@ const Credentials = () => {
 
   return (
     <div id='credentials'>
+      <Sidebar />
       {
         loading
           ? (<p>Loading...</p>)
