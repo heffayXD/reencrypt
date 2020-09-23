@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './login.scss'
@@ -26,6 +26,24 @@ const Login = () => {
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    const temp = async () => {
+      try {
+        const [success, result] = await signIn({ username: 'heffayXD', password: 'Password123' })
+        if (!success) throw result
+
+        // Set Token, user, then push to credentials
+        setToken(result.token)
+        dispatch({ type: 'SET_USER', user: result.user })
+        history.push('/credentials')
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    temp()
+  }, [])
 
   const handleChange = e => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
