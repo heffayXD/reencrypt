@@ -3,23 +3,24 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './credentials.scss'
 
-import { useAPI } from '../../hooks/api'
 import CredentialList from './components/CredentialList'
+import { useInitFiles } from '../../hooks/helpers'
 
 const Credentials = () => {
   const [loading, setLoading] = useState(false)
   const [user, files] = useSelector(state => [state.user, state.fileList.files])
-  const getFiles = useAPI('/file', 'get')
+  const initFiles = useInitFiles()
   const dispatch = useDispatch()
   const history = useHistory()
 
   useEffect(() => {
     const init = async () => {
       try {
-        const [success, result] = await getFiles()
-        if (!success) throw result
+        const [success, data] = await initFiles()
+        if (!success) throw data
 
-        dispatch({ type: 'SET_FILES', files: result.files })
+        console.log(data)
+
         setLoading(false)
       } catch (err) {
         console.log(err)

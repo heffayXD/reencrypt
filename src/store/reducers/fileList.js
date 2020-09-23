@@ -18,6 +18,8 @@ export default (state = DEFAULT_STATE, action) => {
       return { ...state, selected: { ...action.selected } }
     case 'RESET_SELECTED':
       return { ...state, selected: { ...DEFAULT_STATE.selected } }
+    case 'SET_FILE_LIST':
+      return { ...state, ...action.fileList }
     case 'RESET_FILES':
       return { ...DEFAULT_STATE }
     default:
