@@ -4,7 +4,8 @@ const DEFAULT_STATE = {
   firstName: '',
   lastName: '',
   picture: '',
-  email: ''
+  email: '',
+  key: ''
 }
 
 export default (state = DEFAULT_STATE, action) => {

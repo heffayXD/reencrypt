@@ -4,10 +4,12 @@ import { useHistory } from 'react-router-dom'
 import './login.scss'
 
 import { useAPI, setToken } from '../../hooks/api'
+import { useIpcRenderer } from '../../hooks/electron'
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ username: '', password: '' })
   const signIn = useAPI('/user/sign-in', 'post')
+  const getKey = useIpcRenderer('hash')
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -18,9 +20,12 @@ const Login = () => {
       const [success, result] = await signIn(credentials)
       if (!success) throw result
 
+      const [hashed, key] = await getKey(credentials.password)
+      if (!hashed) throw key
+
       // Set Token, user, then push to credentials
       setToken(result.token)
-      dispatch({ type: 'SET_USER', user: result.user })
+      dispatch({ type: 'SET_USER', user: { ...result.user, key } })
       history.push('/credentials')
     } catch (err) {
       console.log(err)
@@ -33,9 +38,12 @@ const Login = () => {
         const [success, result] = await signIn({ username: 'heffayXD', password: 'Password123' })
         if (!success) throw result
 
+        const [hashed, key] = await getKey(credentials.password)
+        if (!hashed) throw key
+
         // Set Token, user, then push to credentials
         setToken(result.token)
-        dispatch({ type: 'SET_USER', user: result.user })
+        dispatch({ type: 'SET_USER', user: { ...result.user, key } })
         history.push('/credentials')
       } catch (err) {
         console.log(err)
