@@ -14,6 +14,6 @@ export default (state = DEFAULT_STATE, action) => {
     case 'RESET_USER':
       return { ...DEFAULT_STATE }
     default:
-      return { ...state }
+      return state
   }
 }

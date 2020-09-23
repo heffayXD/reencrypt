@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './credentials.scss'
 
 import { useAPI } from '../../hooks/api'
 
 const Credentials = () => {
+  const [loading, setLoading] = useState(false)
+  const [user, files] = useSelector(state => [state.user, state.fileList.files])
   const getFiles = useAPI('/file', 'get')
+  const dispatch = useDispatch()
   const history = useHistory()
-  const user = useSelector(state => state.user)
-  console.log(user)
 
   useEffect(() => {
     const init = async () => {
@@ -17,15 +18,18 @@ const Credentials = () => {
         const [success, result] = await getFiles()
         if (!success) throw result
 
-        console.log(result)
+        dispatch({ type: 'SET_FILES', files: result.files })
+        setLoading(false)
       } catch (err) {
         console.log(err)
+        setLoading(false)
       }
     }
 
     if (!user.id) {
       history.push('/')
-    } else {
+    } else if (!files.length) {
+      setLoading(true)
       init()
     }
   }, [])
@@ -33,6 +37,7 @@ const Credentials = () => {
   return (
     <div id='credentials'>
       <h1>Credentials</h1>
+      {loading ? (<p>Loading...</p>) : ''}
     </div>
   )
 }
