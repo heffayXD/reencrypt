@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import './credentials.scss'
 
 import { useAPI } from '../../hooks/api'
+import CredentialList from './components/CredentialList'
 
 const Credentials = () => {
   const [loading, setLoading] = useState(false)
@@ -36,8 +37,11 @@ const Credentials = () => {
 
   return (
     <div id='credentials'>
-      <h1>Credentials</h1>
-      {loading ? (<p>Loading...</p>) : ''}
+      {
+        loading
+          ? (<p>Loading...</p>)
+          : (<CredentialList />)
+      }
     </div>
   )
 }
