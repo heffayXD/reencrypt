@@ -22,7 +22,7 @@ export const useInitFiles = () => {
               name: files.files[0],
               data: file
             },
-            files: files
+            files: files.files
           }
         })
 
