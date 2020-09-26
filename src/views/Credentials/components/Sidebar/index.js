@@ -1,18 +1,30 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import NewFile from './components/NewFile'
+import { useSelector, useDispatch } from 'react-redux'
+
 import './sidebar.scss'
 
+import { useAPI } from '../../../../hooks/api'
+import NewFile from './components/NewFile'
+
 const Sidebar = () => {
+  const getFile = useAPI('/file/:fileId', 'get')
   const [newFile, setNewFile] = useState(false)
+  const dispatch = useDispatch()
   const [selected, files] = useSelector(state => [
     state.fileList.selected.name, state.fileList.files
   ])
 
-  const handleClick = file => {
-    if (file === selected) return
+  const handleClick = async file => {
+    try {
+      if (file === selected) return
 
-    console.log(file)
+      const [fileSuccess, data] = await getFile({}, { fileId: file })
+      if (!fileSuccess) throw data
+
+      dispatch({ type: 'SET_SELECTED', selected: { name: file, data } })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
