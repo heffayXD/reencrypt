@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './credentials.scss'
 
@@ -11,7 +11,6 @@ const Credentials = () => {
   const [loading, setLoading] = useState(false)
   const [user, files] = useSelector(state => [state.user, state.fileList.files])
   const initFiles = useInitFiles()
-  const dispatch = useDispatch()
   const history = useHistory()
 
   useEffect(() => {
